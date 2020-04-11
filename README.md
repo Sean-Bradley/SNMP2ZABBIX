@@ -21,13 +21,19 @@ The server that you will use to create the templates will need to have several S
 
 The **SNMP2ZABBIX.py** script is also written in Python 2.7
 
-### Ubuntu 18.04
+## Install required SNMP dependencies
 
-Install required SNMP dependencies
+### Ubuntu 18
 
 ```bash
 sudo apt update
 sudo apt install snmp snmp-mibs-downloader libsnmp-perl libsnmp-dev 
+```
+
+### Centos 7 
+```bash
+yum check-update
+yum install net-snmp-utils net-snmp-libs net-snmp-perl
 ```
 
 Test **mib2c** works
@@ -70,8 +76,14 @@ python -V
 
 If it doesn't say python 2.7.# then install python
 
+### Ubuntu 18
 ```bash
 apt install python
+```
+
+### Centos 7
+```bash
+yum install python
 ```
 
 Now download the **SNMP2ZABBIX.py** tool
@@ -229,4 +241,15 @@ From the above response,
 Only you can decide which you find is more useful for your needs.
 
 
+Other *snmptranslate* examples
+
+```bash
+snmptranslate -Tz -m /usr/share/snmp/mibs/SNMPv2-MIB.txt
+```
+
+```bash
+snmptranslate -Tz -m /usr/share/snmp/mibs/IF-MIB.txt
+```
+
+The path correct path of your MIBs files will depend on your OS.
 
