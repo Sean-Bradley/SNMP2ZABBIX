@@ -3,6 +3,7 @@
 Convert MIB files to Zabbix Templates
 
 Usage: python SNMP2ZABBIX.py *Path-to-MIB* *Base-OID* 
+
 eg,
 
 ```
@@ -20,17 +21,17 @@ The server that you will use to create the templates will need to have several S
 
 The script is also written in Python 2.7
 
-On Ubuntu 18
+### Ubuntu 18.04
 
 Install required SNMP dependencies
 
-```
+```bash
 sudo apt update
 sudo apt install snmp snmp-mibs-downloader libsnmp-perl libsnmp-dev 
 ```
 
 Test **mib2c** works
-```
+```bash
 mib2c -h
 ```
 
@@ -63,23 +64,27 @@ Output should resemble this below with no errors displayed.
 
 Try python
 
-```
+```bash
 python -V
 ```
 
 If it doesn't say python 2.7.# then install python
 
-```
+```bash
 apt install python
 ```
 
 Now download the **SNMP2ZABBIX.py** tool
 
-```curl https://raw.githubusercontent.com/Sean-Bradley/SNMP2ZABBIX/master/SNMP2ZABBIX.py --output SNMP2ZABBIX.py```
+```curl
+curl https://raw.githubusercontent.com/Sean-Bradley/SNMP2ZABBIX/master/SNMP2ZABBIX.py --output SNMP2ZABBIX.py
+```
 
 or
 
-```wget -O SNMP2ZABBIX.py https://raw.githubusercontent.com/Sean-Bradley/SNMP2ZABBIX/master/SNMP2ZABBIX.py```
+```wget
+wget -O SNMP2ZABBIX.py https://raw.githubusercontent.com/Sean-Bradley/SNMP2ZABBIX/master/SNMP2ZABBIX.py
+```
 
 
 Now you should be ready to continue.
@@ -88,7 +93,9 @@ Now you should be ready to continue.
 
 Create a Zabbix Template for SNMPv2-MIB
 
-```python SNMP2ZABBIX.py /var/lib/snmp/mibs/ietf/SNMPv2-MIB 1.3.6.1.2.1.1```
+```bash
+python SNMP2ZABBIX.py /var/lib/snmp/mibs/ietf/SNMPv2-MIB 1.3.6.1.2.1.1
+```
 
 A new file called **template_SNMPv2-MIB.xml** should be created
 
@@ -99,7 +106,9 @@ You can import this into the **Zabbix**-->**Configuration**-->**Templates** and 
 
 Create a Zabbix Template for IF-MIB
 
-```python SNMP2ZABBIX.py /var/lib/snmp/mibs/ietf/IF-MIB 1.3.6.1.2.1.2```
+```bash
+python SNMP2ZABBIX.py /var/lib/snmp/mibs/ietf/IF-MIB 1.3.6.1.2.1.2
+```
 
 A new file called **template_IF-MIB.xml** should be created
 
@@ -111,13 +120,13 @@ You can import this into the **Zabbix**-->**Configuration**-->**Templates** and 
 This is slightly more complicated.
 First we need to download a generic Huawei MIB file.
 
-```
-curl http://www.circitor.fr/Mibs/Mib/H/HUAWEI-MIB.mib > HUAWEI-MIB.mib 
+```curl
+curl http://www.circitor.fr/Mibs/Mib/H/HUAWEI-MIB.mib > HUAWEI-MIB.mib
 ```
 
 Now to create a ZAbbix Template for the generic Huawei device
 
-```
+```curl
 python SNMP2ZABBIX.py ./HUAWEI-MIB.mib 1.3.6.1
 ```
 
