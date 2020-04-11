@@ -107,59 +107,58 @@ for l in it:
     reader = csv.reader(f, delimiter=',')
     for row in reader:
         if len(row) > 0:
-            if row[0] == "scalar":
-                #print("scaler:\t" + row[4].strip() + "::" + row[1].strip() + "\t" + row[3].strip() + ".0")
-                scalar = [row[4].strip() + "::" + row[1].strip(), row[3].strip() +
-                          ".0", getDataType(row[2].strip()), description]
-                SCALARS.append(scalar)
-                LAST_ENUM_NAME = row[4].strip() + "::" + row[1].strip()
-            elif row[0] == "table":
-                #print("table:\t" + row[4].strip() + "::" + row[1].strip() + "\t" + row[3].strip())
-                discovery_rule = [
-                    row[4].strip() + "::" + row[1].strip(), row[3].strip(), [], description]
-                if not row[4].strip() + "::" + row[1].strip() in DISCOVERY_RULES:
-                    DISCOVERY_RULES[row[4].strip() + "::" +
-                                    row[1].strip()] = []
-                DISCOVERY_RULES[row[4].strip() + "::" +
-                                row[1].strip()].append(discovery_rule)
-                LAST_DISCOVERY_RULE_NAME = row[4].strip(
-                ) + "::" + row[1].strip()
-            elif row[0] == "enum":
-                #print("enum:\t" + row[1].strip() + "=" + row[2].strip())
-                if LAST_ENUM_NAME not in ENUMS:
-                    ENUMS[LAST_ENUM_NAME] = []
-                ENUMS[LAST_ENUM_NAME].append([row[1].strip(), row[2].strip()])
-            elif row[0] == "index":
-                #print("index:\t" + row[4].strip() + "::" +
-                #      row[1].strip() + "\t" + row[3].strip())
-                pass
-            elif row[0] == "nonindex":
-                #print("nonindex:\t" + row[4].strip() + "::" + row[1].strip() + "\t" + row[3].strip())
-                if int(row[7]) == 1:
-                    # print(row)
-                    #print("is an enum title : " + row[4].strip() + "::" + row[1].strip())
+            try:
+                if row[0] == "scalar":
+                    #print("scaler:\t" + row[4].strip() + "::" + row[1].strip() + "\t" + row[3].strip() + ".0")
+                    scalar = [row[4].strip() + "::" + row[1].strip(), row[3].strip() +
+                            ".0", getDataType(row[2].strip()), description]
+                    SCALARS.append(scalar)
                     LAST_ENUM_NAME = row[4].strip() + "::" + row[1].strip()
-                    column = [row[4].strip() + "::" + row[1].strip(), row[3].strip(),
-                              getDataType(row[2].strip()), description, LAST_ENUM_NAME]
-                    DISCOVERY_RULES[LAST_DISCOVERY_RULE_NAME][0][2].append(
-                        column)
-                else:
-                    # print(row)
-                    column = [row[4].strip() + "::" + row[1].strip(),
-                              row[3].strip(), getDataType(row[2].strip()), description]
-                    # print(description)
-                    # print(len(DISCOVERY_RULES[LAST_DISCOVERY_RULE_NAME][0][2]))
-                    DISCOVERY_RULES[LAST_DISCOVERY_RULE_NAME][0][2].append(
-                        column)
-            # else:
-            #     print("not handled row")
-            #     print(row)
-            # if len(row) >= 5 and MIB_NAME == "":
-            #    #print(row[5])
-            #    MIB_NAME = row[4].strip() + "::" + row[5].strip()
+                elif row[0] == "table":
+                    #print("table:\t" + row[4].strip() + "::" + row[1].strip() + "\t" + row[3].strip())
+                    discovery_rule = [
+                        row[4].strip() + "::" + row[1].strip(), row[3].strip(), [], description]
+                    if not row[4].strip() + "::" + row[1].strip() in DISCOVERY_RULES:
+                        DISCOVERY_RULES[row[4].strip() + "::" +
+                                        row[1].strip()] = []
+                    DISCOVERY_RULES[row[4].strip() + "::" +
+                                    row[1].strip()].append(discovery_rule)
+                    LAST_DISCOVERY_RULE_NAME = row[4].strip(
+                    ) + "::" + row[1].strip()
+                elif row[0] == "enum":
+                    #print("enum:\t" + row[1].strip() + "=" + row[2].strip())
+                    if LAST_ENUM_NAME not in ENUMS:
+                        ENUMS[LAST_ENUM_NAME] = []
+                    ENUMS[LAST_ENUM_NAME].append([row[1].strip(), row[2].strip()])
+                elif row[0] == "index":
+                    #print("index:\t" + row[4].strip() + "::" +
+                    #      row[1].strip() + "\t" + row[3].strip())
+                    pass
+                elif row[0] == "nonindex":
+                    #print("nonindex:\t" + row[4].strip() + "::" + row[1].strip() + "\t" + row[3].strip())
+                    if int(row[7]) == 1:
+                        # print(row)
+                        #print("is an enum title : " + row[4].strip() + "::" + row[1].strip())
+                        LAST_ENUM_NAME = row[4].strip() + "::" + row[1].strip()
+                        column = [row[4].strip() + "::" + row[1].strip(), row[3].strip(),
+                                getDataType(row[2].strip()), description, LAST_ENUM_NAME]
+                        DISCOVERY_RULES[LAST_DISCOVERY_RULE_NAME][0][2].append(
+                            column)
+                    else:
+                        # print(row)
+                        column = [row[4].strip() + "::" + row[1].strip(),
+                                row[3].strip(), getDataType(row[2].strip()), description]
+                        # print(description)
+                        # print(len(DISCOVERY_RULES[LAST_DISCOVERY_RULE_NAME][0][2]))
+                        DISCOVERY_RULES[LAST_DISCOVERY_RULE_NAME][0][2].append(
+                            column)
+                # else:
+                #     print("not handled row")
+                #     print(row)
+            except KeyError:
+                print("KeyError Exception.\nThis tends to happen when your Base OID is to specific.\nChoose a Base OID closer to the root.\nEg, If you used 1.3.6.1.4.1, then try 1.3.6.1.4.\nIf the error still occurs, then try 1.3.6.1.\nNote that using a Base OID closer to the root will result in larger template files being generated.")
+                exit()
 
-
-#print("MIB_NAME = " + MIB_NAME)
 
 XML = """<?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
@@ -314,7 +313,7 @@ if len(ENUMS):
 XML += "</zabbix_export>"
 
 # print(XML)
-with open("template_" + removeColons(MIB_NAME).replace(" ", "_") + ".xml", "w") as xml_file:
+with open("template_" + MIB_NAME + ".xml", "w") as xml_file:
     xml_file.write(XML)
 
 print("Done")
