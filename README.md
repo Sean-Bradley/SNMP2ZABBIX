@@ -99,7 +99,7 @@ Now you should be ready to continue.
 Create a Zabbix Template for SNMPv2-MIB
 
 ```bash
-python SNMP2ZABBIX.py /var/lib/snmp/mibs/ietf/SNMPv2-MIB 1.3.6.1.2.1.1
+python SNMP2ZABBIX.py /usr/share/snmp/mibs/SNMPv2-MIB.txt 1.3.6.1.2.1.1
 ```
 
 A new file called **template_SNMPv2-MIB.xml** should be created
@@ -112,7 +112,7 @@ You can import this into the **Zabbix**-->**Configuration**-->**Templates** and 
 Create a Zabbix Template for IF-MIB
 
 ```bash
-python SNMP2ZABBIX.py /var/lib/snmp/mibs/ietf/IF-MIB 1.3.6.1.2.1.2
+python SNMP2ZABBIX.py /usr/share/snmp/mibs/IF-MIB.txt 1.3.6.1.2.1.2
 ```
 
 A new file called **template_IF-MIB.xml** should be created
@@ -252,4 +252,6 @@ snmptranslate -Tz -m /usr/share/snmp/mibs/IF-MIB.txt
 ```
 
 The path correct path of your MIBs files will depend on your OS.
+
+
 
