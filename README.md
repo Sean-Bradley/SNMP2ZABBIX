@@ -169,7 +169,7 @@ You need to tell it which MIB file you want to convert and which base OID to sta
 
 Selecting which Base OID to use will take some research.
 
-I suggest doing an snmptranslate on the mib file first, and select one of the Base OIDs returned.
+I suggest doing an *snmptranslate* on the mib file first, and select one of the Base OIDs returned.
 
 If you choose a Base OID to close to the root, it will result in a larger template file being generated.
 
@@ -177,33 +177,27 @@ If you choose an OID to specific, then the script may error, or your generated t
 
 eg,
 
-
+This produces a very small template file with almost no useful information.
 ```bash
 python SNMP2ZABBIX.py /usr/share/snmp/mibs/CISCO-VTP-MIB.my 1.3.6.1.2.1.1
 ```
 
-produces a very small template file with almost no useful information.
-
-
+This is better, but it could be better still,
 ```bash
 python SNMP2ZABBIX.py /usr/share/snmp/mibs/CISCO-VTP-MIB.my 1.3.6.1.2.1
 ```
 
-This is better, but it could be better still,
-
-
+this may be just fine,
 ```bash
 python SNMP2ZABBIX.py /usr/share/snmp/mibs/CISCO-VTP-MIB.my 1.3.6.1.2
 ```
 
-this may be just fine,
-
+this may even be better. Only you can decide.
 ```bash
 python SNMP2ZABBIX.py /usr/share/snmp/mibs/CISCO-VTP-MIB.my 1.3.6.1
 ```
 
-this will maybe be even better. Only you can decide.
-
+### Example *snmptranmslate*
 
 Example *snmptranmslate* to find an appropriate OID to start from.
 
@@ -216,14 +210,14 @@ This will produce a lot of MIBs and corresponding OIDs
 ```text
 "org"                   "1.3"
 "dod"                   "1.3.6"
-"internet"                      "1.3.6.1"
-"directory"                     "1.3.6.1.1"
+"internet"              "1.3.6.1"
+"directory"             "1.3.6.1.1"
 "mgmt"                  "1.3.6.1.2"
 "mib-2"                 "1.3.6.1.2.1"
-"system"                        "1.3.6.1.2.1.1"
-"sysDescr"                      "1.3.6.1.2.1.1.1"
-"sysObjectID"                   "1.3.6.1.2.1.1.2"
-"sysUpTime"                     "1.3.6.1.2.1.1.3"
+"system"                "1.3.6.1.2.1.1"
+"sysDescr"              "1.3.6.1.2.1.1.1"
+"sysObjectID"           "1.3.6.1.2.1.1.2"
+"sysUpTime"             "1.3.6.1.2.1.1.3"
 ...
 etc
 ```
