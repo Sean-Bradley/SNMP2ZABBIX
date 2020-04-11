@@ -163,3 +163,76 @@ You can import this into the **Zabbix**-->**Configuration**-->**Templates** and 
 ## Important
 Note that all items, discovery rules and their item prototypes will be disabled by default after the import. You should decide which elements are important to enable for your needs based on the devices official documentation. Enabling all items, discovery rules and their item prototypes may put unnecessary strain on your Zabbix server resources and the SNMP devices so it is important to be sure to only enable just the elements that you actually need.
 
+## Further Notes
+
+You need to tell it which MIB file you want to convert and which base OID to start translating from. 
+
+Selecting which Base OID to use will take some research.
+
+I suggest doing an snmptranslate on the mib file first, and select one of the Base OIDs returned.
+
+If you choose a Base OID to close to the root, it will result in a larger template file being generated.
+
+If you choose an OID to specific, then the script may error, or your generated template will contain no useful items or discovery rules.
+
+eg,
+
+
+```bash
+python SNMP2ZABBIX.py /usr/share/snmp/mibs/CISCO-VTP-MIB.my 1.3.6.1.2.1.1
+```
+
+produces a very small template file with almost no useful information.
+
+
+```bash
+python SNMP2ZABBIX.py /usr/share/snmp/mibs/CISCO-VTP-MIB.my 1.3.6.1.2.1
+```
+
+This is better, but it could be better still,
+
+
+```bash
+python SNMP2ZABBIX.py /usr/share/snmp/mibs/CISCO-VTP-MIB.my 1.3.6.1.2
+```
+
+this may be just fine,
+
+```bash
+python SNMP2ZABBIX.py /usr/share/snmp/mibs/CISCO-VTP-MIB.my 1.3.6.1
+```
+
+this will maybe be even better. Only you can decide.
+
+
+Example *snmptranmslate* to find an appropriate OID to start from.
+
+```bash
+snmptranslate -Tz -m /usr/share/snmp/mibs/CISCO-VTP-MIB.my
+```
+
+This will produce a lot of MIBs and corresponding OIDs
+
+```text
+"org"                   "1.3"
+"dod"                   "1.3.6"
+"internet"                      "1.3.6.1"
+"directory"                     "1.3.6.1.1"
+"mgmt"                  "1.3.6.1.2"
+"mib-2"                 "1.3.6.1.2.1"
+"system"                        "1.3.6.1.2.1.1"
+"sysDescr"                      "1.3.6.1.2.1.1.1"
+"sysObjectID"                   "1.3.6.1.2.1.1.2"
+"sysUpTime"                     "1.3.6.1.2.1.1.3"
+...
+etc
+```
+
+From the above response,
+- Using 1.3.6.1.2.1.1 will produce a template to small,
+- Using 1.3.6.1.2.1 will produce a better template,
+- Using 1.3.6.1.2 will produce an even better template with more coverage.
+Only you can decide which you find is more useful for your needs.
+
+
+
