@@ -19,7 +19,7 @@ python SNMP2ZABBIX.py /var/lib/snmp/mibs/ietf/IF-MIB 1.3.6.1.2.1.2
 
 The server that you will use to create the templates will need to have several SNMP configurations and tools pre installed, plus the MIB files that you want to convert, plus any dependencies they require, and they will need to be correctly placed within the file system.
 
-The script is also written in Python 2.7
+The **SNMP2ZABBIX.py** script is also written in Python 2.7
 
 ### Ubuntu 18.04
 
@@ -169,7 +169,7 @@ You need to tell it which MIB file you want to convert and which base OID to sta
 
 Selecting which Base OID to use will take some research.
 
-I suggest doing an *snmptranslate* on the mib file first, and select one of the Base OIDs returned.
+I suggest doing an *snmptranslate* on the MIB file first, and select one of the Base OIDs returned. (see below)
 
 If you choose a Base OID to close to the root, it will result in a larger template file being generated.
 
@@ -197,9 +197,9 @@ this may even be better. Only you can decide.
 python SNMP2ZABBIX.py /usr/share/snmp/mibs/CISCO-VTP-MIB.my 1.3.6.1
 ```
 
-### Example *snmptranmslate*
+### Example *snmptranslate*
 
-Example *snmptranmslate* to find an appropriate OID to start from.
+Example *snmptranslate* to find an appropriate OID to start from.
 
 ```bash
 snmptranslate -Tz -m /usr/share/snmp/mibs/CISCO-VTP-MIB.my
