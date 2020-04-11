@@ -186,7 +186,7 @@ cp CISCO-VTP-MIB.my /usr/share/snmp/mibs/
 ```
 
 ``` bash
-python SNMP2ZABBIX.py /usr/share/snmp/mibs/CISCO-VTP-MIB.my 1.3.6.1
+python SNMP2ZABBIX.py /usr/share/snmp/mibs/CISCO-VTP-MIB.my 1.3.6.1.2
 ```
 
 A new file **template_CISCO-VTP-MIB.xml** should have been created.
