@@ -14,7 +14,7 @@ python SNMP2ZABBIX.py /var/lib/snmp/mibs/ietf/SNMPv2-MIB 1.3.6.1.2.1.1
 ### Centos 7
 
 ``` 
-python SNMP2ZABBIX.py /usr/share/snmp/mibs/SNMPv2-MIB.txt 1.3.6.1.2.1.2
+python SNMP2ZABBIX.py /usr/share/snmp/mibs/SNMPv2-MIB.txt 1.3.6.1.2.1.1
 ```
 
 ## Requirements
