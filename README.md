@@ -36,7 +36,7 @@ mib2c -h
 ```
 
 Output should resemble this below with no errors displayed.
-```text
+```bash
 /usr/bin/mib2c [-h] [-c configfile] [-f prefix] mibNode
 
   -h            This message.
@@ -76,16 +76,9 @@ apt install python
 
 Now download the **SNMP2ZABBIX.py** tool
 
-```curl
+```bash
 curl https://raw.githubusercontent.com/Sean-Bradley/SNMP2ZABBIX/master/SNMP2ZABBIX.py --output SNMP2ZABBIX.py
 ```
-
-or
-
-```wget
-wget -O SNMP2ZABBIX.py https://raw.githubusercontent.com/Sean-Bradley/SNMP2ZABBIX/master/SNMP2ZABBIX.py
-```
-
 
 Now you should be ready to continue.
 
@@ -120,13 +113,13 @@ You can import this into the **Zabbix**-->**Configuration**-->**Templates** and 
 This is slightly more complicated.
 First we need to download a generic Huawei MIB file.
 
-```curl
+```bash
 curl http://www.circitor.fr/Mibs/Mib/H/HUAWEI-MIB.mib > HUAWEI-MIB.mib
 ```
 
 Now to create a ZAbbix Template for the generic Huawei device
 
-```curl
+```bash
 python SNMP2ZABBIX.py ./HUAWEI-MIB.mib 1.3.6.1
 ```
 
