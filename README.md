@@ -1,6 +1,6 @@
 # SNMP2ZABBIX
 
-Convert MIB files to Zabbix Templates
+Create Zabbix Templates from MIB files.
 
 Usage: python SNMP2ZABBIX.py *Path-to-MIB* *Base-OID* 
 
@@ -92,7 +92,7 @@ python SNMP2ZABBIX.py /var/lib/snmp/mibs/ietf/SNMPv2-MIB 1.3.6.1.2.1.1
 
 A new file called **template_SNMPv2-MIB.xml** should be created
 
-You can import this into the **Zabbix**-->**Configuration**-->**Templates** and assign it to a host that has a SNMP interface configured.
+You can import this into the **Zabbix**-->**Configuration**-->**Templates** and assign it to a host that has an SNMP interface configured.
 
 
 ## Example 2
@@ -105,7 +105,7 @@ python SNMP2ZABBIX.py /var/lib/snmp/mibs/ietf/IF-MIB 1.3.6.1.2.1.2
 
 A new file called **template_IF-MIB.xml** should be created
 
-You can import this into the **Zabbix**-->**Configuration**-->**Templates** and assign it to a host that has a SNMP interface configured.
+You can import this into the **Zabbix**-->**Configuration**-->**Templates** and assign it to a host that has an SNMP interface configured.
 
 
 ## Example 3
@@ -117,7 +117,7 @@ First we need to download a generic Huawei MIB file.
 curl http://www.circitor.fr/Mibs/Mib/H/HUAWEI-MIB.mib > HUAWEI-MIB.mib
 ```
 
-Now to create a ZAbbix Template for the generic Huawei device
+Now to create a Zabbix Template for the generic Huawei device
 
 ```bash
 python SNMP2ZABBIX.py ./HUAWEI-MIB.mib 1.3.6.1
