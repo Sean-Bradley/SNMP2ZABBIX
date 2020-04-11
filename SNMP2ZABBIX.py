@@ -19,7 +19,9 @@ from io import StringIO
 import csv
 
 if(not os.path.exists("snmp2zabbix.conf")):
-    MIB2C_CONFIG = """@open -@
+    MIB2C_CONFIG = """#Copyright 2020 Sean Bradley https://sbcode.net/zabbix/
+#Licensed under the Apache License, Version 2.0
+@open -@
 @foreach $s scalar@
 * scalar, $s, $s.decl, $s.objectID, $s.module, $s.parent, $s.subid, $s.enums, "$s.description"
     @foreach $LABEL, $VALUE enum@
@@ -152,7 +154,12 @@ for l in it:
             # else:
             #     print("not handled row")
             #     print(row)
+            # if len(row) >= 5 and MIB_NAME == "":
+            #    #print(row[5])
+            #    MIB_NAME = row[4].strip() + "::" + row[5].strip()
 
+
+#print("MIB_NAME = " + MIB_NAME)
 
 XML = """<?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
@@ -307,7 +314,7 @@ if len(ENUMS):
 XML += "</zabbix_export>"
 
 # print(XML)
-with open("template_" + MIB_NAME + ".xml", "w") as xml_file:
+with open("template_" + removeColons(MIB_NAME).replace(" ", "_") + ".xml", "w") as xml_file:
     xml_file.write(XML)
 
 print("Done")
