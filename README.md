@@ -113,7 +113,7 @@ python SNMP2ZABBIX.py /var/lib/snmp/mibs/ietf/SNMPv2-MIB 1.3.6.1.2.1.1
 ### Centos 7
 
 ``` bash
-python SNMP2ZABBIX.py /usr/share/snmp/mibs/SNMPv2-MIB 1.3.6.1.2.1.1
+python SNMP2ZABBIX.py /usr/share/snmp/mibs/SNMPv2-MIB.txt 1.3.6.1.2.1.1
 ```
 
 A new file called **template_SNMPv2-MIB.xml** should be created
@@ -133,7 +133,7 @@ python SNMP2ZABBIX.py /var/lib/snmp/mibs/ietf/IF-MIB 1.3.6.1.2.1.2
 ### Centos 7
 
 ``` bash
-python SNMP2ZABBIX.py /usr/share/snmp/mibs/IF-MIB 1.3.6.1.2.1.2
+python SNMP2ZABBIX.py /usr/share/snmp/mibs/IF-MIB.txt 1.3.6.1.2.1.2
 ```
 
 A new file called **template_IF-MIB.xml** should be created
@@ -268,6 +268,18 @@ From the above response,
 Only you can decide which you find is more useful for your needs.
 
 Other *snmptranslate* examples
+
+### Ubuntu 18
+
+``` bash
+snmptranslate -Tz -m /var/lib/snmp/mibs/ietf/SNMPv2-MIB
+```
+
+``` bash
+snmptranslate -Tz -m /var/lib/snmp/mibs/ietf/IF-MIB
+```
+
+### Centos 7
 
 ``` bash
 snmptranslate -Tz -m /usr/share/snmp/mibs/SNMPv2-MIB.txt
