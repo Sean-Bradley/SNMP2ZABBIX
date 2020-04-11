@@ -125,12 +125,40 @@ python SNMP2ZABBIX.py ./HUAWEI-MIB.mib 1.3.6.1
 
 A new file **template_HUAWEI-MIB.xml** should have been created.
 
-You can import this into the **Zabbix**-->**Configuration**-->**Templates** and assign it to a HUAWEI host that has a SNMP interface configured.
+You can import this into the **Zabbix**-->**Configuration**-->**Templates** and assign it to a HUAWEI host that has an SNMP interface configured.
 
 ## Example 4
 
 This is even more complicated. This MIB file has dependencies.
 
+This is for a CISCO-VTP
+
+```bash
+curl -s ftp://ftp.cisco.com/pub/mibs/v2/CISCO-VTP-MIB.my > CISCO-VTP-MIB.my
+```
+
+This MIB requires 2 other MIBs, so also download them. The script won't work otherwise.
+
+```bash
+curl -s ftp://ftp.cisco.com/pub/mibs/v2/CISCO-TC.my > CISCO-TC.my
+curl -s ftp://ftp.cisco.com/pub/mibs/v2/CISCO-SMI.my > CISCO-SMI.my
+```
+
+Now place all 3 files into one of the mib search paths. I will use */usr/share/snmp/mibs/*
+
+```bash
+cp CISCO-SMI.my /usr/share/snmp/mibs/
+cp CISCO-TC.my /usr/share/snmp/mibs/
+cp CISCO-VTP-MIB.my /usr/share/snmp/mibs/
+```
+
+```bash
+python SNMP2ZABBIX.py /usr/share/snmp/mibs/CISCO-VTP-MIB.my 1.3.6.1
+```
+
+A new file **template_CISCO-VTP-MIB.xml** should have been created.
+
+You can import this into the **Zabbix**-->**Configuration**-->**Templates** and assign it to a CISCO host that has an SNMP interface configured.
 
 ## Important
 Note that all items, discovery rules and their item prototypes will be disabled by default after the import. You should decide which elements are important to enable for your needs based on the devices official documentation. Enabling all items, discovery rules and their item prototypes may put unnecessary strain on your Zabbix server resources and the SNMP devices so it is important to be sure to only enable just the elements that you actually need.
