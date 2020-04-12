@@ -290,5 +290,5 @@ snmptranslate -Tz -m /usr/share/snmp/mibs/SNMPv2-MIB.txt
 snmptranslate -Tz -m /usr/share/snmp/mibs/IF-MIB.txt
 ```
 
-The path correct path of your MIBs files will depend on your OS.
+The correct path of your MIBs files will depend on your OS.
 
