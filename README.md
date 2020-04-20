@@ -1,6 +1,6 @@
 # SNMP2ZABBIX
 
-Create Zabbix Templates from MIB files.
+snmp2zabbix is a python script that allows you to create Zabbix Templates from MIB files.
 
 Usage: python SNMP2ZABBIX.py *Path-to-MIB* *Base-OID* 
 
