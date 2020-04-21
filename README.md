@@ -4,7 +4,7 @@ snmp2zabbix is a python script that allows you to create Zabbix Templates from M
 
 Usage: 
 ```bash
-python SNMP2ZABBIX.py *Path-to-MIB-file* *Base-OID* 
+python SNMP2ZABBIX.py Path-to-MIB-file Base-OID
 ```
 
 eg, 
