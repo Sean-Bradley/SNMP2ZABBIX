@@ -23,27 +23,26 @@ if(not os.path.exists("snmp2zabbix.conf")):
 #Licensed under the Apache License, Version 2.0
 @open -@
 @foreach $s scalar@
-* scalar, $s, $s.decl, $s.objectID, $s.module, $s.parent, $s.subid, $s.enums, "$s.description"
+*** scalar, $s, $s.decl, $s.objectID, $s.module, $s.parent, $s.subid, $s.enums, "$s.description" ***
     @foreach $LABEL, $VALUE enum@
-* enum, $LABEL, $VALUE, " "
+*** enum, $LABEL, $VALUE, " " ***
     @end@
 @end@
 @foreach $t table@
-* table, $t, $t.decl, $t.objectID, $t.module, $t.parent, $t.subid, $t.enums, "$t.description"
+*** table, $t, $t.decl, $t.objectID, $t.module, $t.parent, $t.subid, $t.enums, "$t.description" ***
     @foreach $i index@
-* index, $i, $i.decl, $i.objectID, $i.module, $i.parent, $i.subid, $i.enums, "$i.description"
+*** index, $i, $i.decl, $i.objectID, $i.module, $i.parent, $i.subid, $i.enums, "$i.description" ***
         @foreach $LABEL, $VALUE enum@
-* enum, $LABEL, $VALUE, " "
+*** enum, $LABEL, $VALUE, " " ***
         @end@
     @end@
     @foreach $i nonindex@
-* nonindex, $i, $i.decl, $i.objectID, $i.module, $i.parent, $i.subid, $i.enums, "$i.description"
+*** nonindex, $i, $i.decl, $i.objectID, $i.module, $i.parent, $i.subid, $i.enums, "$i.description" ***
         @foreach $LABEL, $VALUE enum@
-* enum, $LABEL, $VALUE, " "
+*** enum, $LABEL, $VALUE, " " ***
         @end@
     @end@
 @end@
-
 """
 
     with open("snmp2zabbix.conf", "w") as mib2c_config_file:
@@ -91,7 +90,7 @@ def removeColons(s):
     return s.replace("::", " ")
 
 
-it = re.finditer(r'\* (.*"[^"]*")', MIB2C_DATA)
+it = re.finditer(r'\*\*\* (.*[^\*\*\*]*) \*\*\*', MIB2C_DATA)
 for l in it:
     line = l.groups()[0]
     groups = re.search(r'.*("[^"]*")', line)
@@ -111,13 +110,15 @@ for l in it:
         if len(row) > 0:
             try:
                 if row[0] == "scalar":
-                    #print("scaler:\t" + row[4].strip() + "::" + row[1].strip() + "\t" + row[3].strip() + ".0")
+                    print("scaler:\t" + row[4].strip() + "::" +
+                          row[1].strip() + "\t" + row[3].strip() + ".0")
                     scalar = [row[4].strip() + "::" + row[1].strip(), row[3].strip() +
-                            ".0", getDataType(row[2].strip()), description]
+                              ".0", getDataType(row[2].strip()), description]
                     SCALARS.append(scalar)
                     LAST_ENUM_NAME = row[4].strip() + "::" + row[1].strip()
                 elif row[0] == "table":
-                    #print("table:\t" + row[4].strip() + "::" + row[1].strip() + "\t" + row[3].strip())
+                    print("table:\t" + row[4].strip() + "::" +
+                          row[1].strip() + "\t" + row[3].strip())
                     discovery_rule = [
                         row[4].strip() + "::" + row[1].strip(), row[3].strip(), [], description]
                     if not row[4].strip() + "::" + row[1].strip() in DISCOVERY_RULES:
@@ -128,52 +129,60 @@ for l in it:
                     LAST_DISCOVERY_RULE_NAME = row[4].strip(
                     ) + "::" + row[1].strip()
                 elif row[0] == "enum":
-                    #print("enum:\t" + row[1].strip() + "=" + row[2].strip())
+                    print("enum:\t" + row[1].strip() + "=" + row[2].strip())
                     if LAST_ENUM_NAME not in ENUMS:
                         ENUMS[LAST_ENUM_NAME] = []
-                    ENUMS[LAST_ENUM_NAME].append([row[1].strip(), row[2].strip()])
+                    ENUMS[LAST_ENUM_NAME].append(
+                        [row[1].strip(), row[2].strip()])
                 elif row[0] == "index":
-                    #print("index:\t" + row[4].strip() + "::" +
-                    #      row[1].strip() + "\t" + row[3].strip())
-                    pass
+                    print("index:\t" + row[4].strip() + "::" +
+                          row[1].strip() + "\t" + row[3].strip())
+                    # pass
                 elif row[0] == "nonindex":
-                    #print("nonindex:\t" + row[4].strip() + "::" + row[1].strip() + "\t" + row[3].strip())
+                    print(
+                        "nonindex:\t" + row[4].strip() + "::" + row[1].strip() + "\t" + row[3].strip())
                     if int(row[7]) == 1:
                         # print(row)
                         #print("is an enum title : " + row[4].strip() + "::" + row[1].strip())
                         LAST_ENUM_NAME = row[4].strip() + "::" + row[1].strip()
                         column = [row[4].strip() + "::" + row[1].strip(), row[3].strip(),
-                                getDataType(row[2].strip()), description, LAST_ENUM_NAME]
+                                  getDataType(row[2].strip()), description, LAST_ENUM_NAME]
                         if LAST_DISCOVERY_RULE_NAME == "":
-                            LAST_DISCOVERY_RULE_NAME = row[4].strip() + "::" + row[5].strip()
+                            LAST_DISCOVERY_RULE_NAME = row[4].strip(
+                            ) + "::" + row[5].strip()
                             if not LAST_DISCOVERY_RULE_NAME in DISCOVERY_RULES:
                                 DISCOVERY_RULES[LAST_DISCOVERY_RULE_NAME] = []
                                 #print("need to create discovery rule")
-                                discovery_rule = [row[4].strip() + "::" + row[5].strip(), row[3].strip(), [], description]     
-                                DISCOVERY_RULES[LAST_DISCOVERY_RULE_NAME].append(discovery_rule)               
+                                discovery_rule = [
+                                    row[4].strip() + "::" + row[5].strip(), row[3].strip(), [], description]
+                                DISCOVERY_RULES[LAST_DISCOVERY_RULE_NAME].append(
+                                    discovery_rule)
                         DISCOVERY_RULES[LAST_DISCOVERY_RULE_NAME][0][2].append(
                             column)
                     else:
                         # print(row)
                         column = [row[4].strip() + "::" + row[1].strip(),
-                                row[3].strip(), getDataType(row[2].strip()), description]
+                                  row[3].strip(), getDataType(row[2].strip()), description]
                         # print(description)
                         # print(len(DISCOVERY_RULES[LAST_DISCOVERY_RULE_NAME][0][2]))
                         if LAST_DISCOVERY_RULE_NAME == "":
-                            LAST_DISCOVERY_RULE_NAME = row[4].strip() + "::" + row[5].strip()
+                            LAST_DISCOVERY_RULE_NAME = row[4].strip(
+                            ) + "::" + row[5].strip()
                             if not LAST_DISCOVERY_RULE_NAME in DISCOVERY_RULES:
                                 DISCOVERY_RULES[LAST_DISCOVERY_RULE_NAME] = []
                                 #print("need to create discovery rule")
-                                discovery_rule = [row[4].strip() + "::" + row[5].strip(), row[3].strip(), [], description]     
-                                DISCOVERY_RULES[LAST_DISCOVERY_RULE_NAME].append(discovery_rule)                           
+                                discovery_rule = [
+                                    row[4].strip() + "::" + row[5].strip(), row[3].strip(), [], description]
+                                DISCOVERY_RULES[LAST_DISCOVERY_RULE_NAME].append(
+                                    discovery_rule)
                         DISCOVERY_RULES[LAST_DISCOVERY_RULE_NAME][0][2].append(
                             column)
                 # else:
                 #     print("not handled row")
                 #     print(row)
-            except: # KeyError:
+            except:  # KeyError:
                 #print("KeyError Exception.\nThis tends to happen if your MIB file cannot be found. Check that it exists. Or, your Base OID may be to specific and not found within the MIB file you are converting.\nChoose a Base OID closer to the root.\nEg, If you used 1.3.6.1.4.1, then try 1.3.6.1.4.\nIf the error still occurs, then try 1.3.6.1.\nNote that using a Base OID closer to the root will result in larger template files being generated.")
-                #exit()
+                # exit()
                 e = sys.exc_info()[0]
                 print("Exception : %s : %s " % (e, row))
 
