@@ -101,6 +101,8 @@ for l in it:
             description = groups.group(1).encode('string_escape')
             description = description.replace('"', '')
             description = description.replace('\\n', '&#13;')
+            description = description.replace('<', '&lt;')
+            description = description.replace('>', '&gt;')
             description = re.sub(r"\s\s+", " ", description)
 
     f = StringIO(u'' + line + '')
