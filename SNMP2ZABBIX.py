@@ -144,8 +144,10 @@ for l in it:
                         LAST_ENUM_NAME = row[4].strip() + "::" + row[1].strip()
                         column = [row[4].strip() + "::" + row[1].strip(), row[3].strip(),
                                 getDataType(row[2].strip()), description, LAST_ENUM_NAME]
-                        if(LAST_DISCOVERY_RULE_NAME is None):
+                        if LAST_DISCOVERY_RULE_NAME is None:
                             LAST_DISCOVERY_RULE_NAME = row[5].strip()
+                            if not LAST_DISCOVERY_RULE_NAME in DISCOVERY_RULES:
+                                DISCOVERY_RULES[LAST_DISCOVERY_RULE_NAME] = []
                         DISCOVERY_RULES[LAST_DISCOVERY_RULE_NAME][0][2].append(
                             column)
                     else:
@@ -156,6 +158,8 @@ for l in it:
                         # print(len(DISCOVERY_RULES[LAST_DISCOVERY_RULE_NAME][0][2]))
                         if(LAST_DISCOVERY_RULE_NAME is None):
                             LAST_DISCOVERY_RULE_NAME = row[5].strip()
+                            if not LAST_DISCOVERY_RULE_NAME in DISCOVERY_RULES:
+                                DISCOVERY_RULES[LAST_DISCOVERY_RULE_NAME] = []
                         DISCOVERY_RULES[LAST_DISCOVERY_RULE_NAME][0][2].append(
                             column)
                 # else:
