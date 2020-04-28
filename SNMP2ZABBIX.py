@@ -145,9 +145,12 @@ for l in it:
                         column = [row[4].strip() + "::" + row[1].strip(), row[3].strip(),
                                 getDataType(row[2].strip()), description, LAST_ENUM_NAME]
                         if LAST_DISCOVERY_RULE_NAME == "":
-                            LAST_DISCOVERY_RULE_NAME = row[5].strip()
+                            LAST_DISCOVERY_RULE_NAME = row[4].strip() + "::" + row[5].strip()
                             if not LAST_DISCOVERY_RULE_NAME in DISCOVERY_RULES:
                                 DISCOVERY_RULES[LAST_DISCOVERY_RULE_NAME] = []
+                                #print("need to create discovery rule")
+                                discovery_rule = [row[4].strip() + "::" + row[5].strip(), row[3].strip(), [], description]     
+                                DISCOVERY_RULES[LAST_DISCOVERY_RULE_NAME].append(discovery_rule)               
                         DISCOVERY_RULES[LAST_DISCOVERY_RULE_NAME][0][2].append(
                             column)
                     else:
@@ -156,10 +159,13 @@ for l in it:
                                 row[3].strip(), getDataType(row[2].strip()), description]
                         # print(description)
                         # print(len(DISCOVERY_RULES[LAST_DISCOVERY_RULE_NAME][0][2]))
-                        if(LAST_DISCOVERY_RULE_NAME == ""):
-                            LAST_DISCOVERY_RULE_NAME = row[5].strip()
+                        if LAST_DISCOVERY_RULE_NAME == "":
+                            LAST_DISCOVERY_RULE_NAME = row[4].strip() + "::" + row[5].strip()
                             if not LAST_DISCOVERY_RULE_NAME in DISCOVERY_RULES:
                                 DISCOVERY_RULES[LAST_DISCOVERY_RULE_NAME] = []
+                                #print("need to create discovery rule")
+                                discovery_rule = [row[4].strip() + "::" + row[5].strip(), row[3].strip(), [], description]     
+                                DISCOVERY_RULES[LAST_DISCOVERY_RULE_NAME].append(discovery_rule)                           
                         DISCOVERY_RULES[LAST_DISCOVERY_RULE_NAME][0][2].append(
                             column)
                 # else:
