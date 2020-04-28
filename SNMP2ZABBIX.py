@@ -156,7 +156,7 @@ for l in it:
                 #     print("not handled row")
                 #     print(row)
             except KeyError:
-                print("KeyError Exception.\nThis tends to happen when your Base OID is to specific or not found within the MIB file you are cobverting.\nChoose a Base OID closer to the root.\nEg, If you used 1.3.6.1.4.1, then try 1.3.6.1.4.\nIf the error still occurs, then try 1.3.6.1.\nNote that using a Base OID closer to the root will result in larger template files being generated.")
+                print("KeyError Exception.\nThis tends to happen if your MIB file cannot be found. Check that it exists. Or, your Base OID may be to specific and not found within the MIB file you are converting.\nChoose a Base OID closer to the root.\nEg, If you used 1.3.6.1.4.1, then try 1.3.6.1.4.\nIf the error still occurs, then try 1.3.6.1.\nNote that using a Base OID closer to the root will result in larger template files being generated.")
                 exit()
 
 
