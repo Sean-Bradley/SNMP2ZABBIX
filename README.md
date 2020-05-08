@@ -38,7 +38,7 @@ sudo apt install snmp snmp-mibs-downloader libsnmp-perl libsnmp-dev
 ### Centos 7 
 
 ``` bash
-yum check-update
+yum update
 yum install net-snmp-utils net-snmp-libs net-snmp-perl
 ```
 
