@@ -173,7 +173,7 @@ This is for a CISCO-VTP
 curl -s ftp://ftp.cisco.com/pub/mibs/v2/CISCO-VTP-MIB.my > CISCO-VTP-MIB.my
 ```
 
-This MIB requires 2 other MIBs, so also download them. The script won't work otherwise.
+This MIB depends 2 other MIBs, so also download them. The script won't work otherwise.
 
 ``` bash
 curl -s ftp://ftp.cisco.com/pub/mibs/v2/CISCO-TC.my > CISCO-TC.my
