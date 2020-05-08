@@ -173,6 +173,46 @@
                             </valuemap>
                         </item_prototype>
                         <item_prototype>
+                            <name>IF-MIB::ifOperStatus[{#SNMPINDEX}]</name>
+                            <type>SNMPV2</type>
+                            <description>The current operational state of the interface. The&#13; testing(3) state indicates that no operational packets can&#13; be passed. If ifAdminStatus is down(2) then ifOperStatus&#13; should be down(2). If ifAdminStatus is changed to up(1)&#13; then ifOperStatus should change to up(1) if the interface is&#13; ready to transmit and receive network traffic; it should&#13; change to dormant(5) if the interface is waiting for&#13; external actions (such as a serial line waiting for an&#13; incoming connection); it should remain in the down(2) state&#13; if and only if there is a fault that prevents it from going&#13; to the up(1) state; it should remain in the notPresent(6)&#13; state if the interface has missing (typically, hardware)&#13; components.</description>
+                            <applications>
+                                <application>
+                                    <name>IF-MIB</name>
+                                </application>
+                            </applications>
+                            <port>{$SNMP_PORT}</port>
+                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <key>.1.3.6.1.2.1.2.2.1.8.[{#SNMPINDEX}]</key>
+                            <snmp_oid>.1.3.6.1.2.1.2.2.1.8.{#SNMPINDEX}</snmp_oid>
+                            <delay>1h</delay>
+                            <history>2w</history>
+                            <trends>0</trends>
+                            <status>DISABLED</status>
+                            <value_type>FLOAT</value_type>
+                            <valuemap>
+                                <name>IF-MIB::ifOperStatus</name>
+                            </valuemap>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>IF-MIB::ifLastChange[{#SNMPINDEX}]</name>
+                            <type>SNMPV2</type>
+                            <description>The value of sysUpTime at the time the interface entered&#13; its current operational state. If the current state was&#13; entered prior to the last re-initialization of the local&#13; network management subsystem, then this object contains a&#13; zero value.</description>
+                            <applications>
+                                <application>
+                                    <name>IF-MIB</name>
+                                </application>
+                            </applications>
+                            <port>{$SNMP_PORT}</port>
+                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <key>.1.3.6.1.2.1.2.2.1.9.[{#SNMPINDEX}]</key>
+                            <snmp_oid>.1.3.6.1.2.1.2.2.1.9.{#SNMPINDEX}</snmp_oid>
+                            <delay>1h</delay>
+                            <history>2w</history>
+                            <trends>0</trends>
+                            <status>DISABLED</status>
+                        </item_prototype>
+                        <item_prototype>
                             <name>IF-MIB::ifInOctets[{#SNMPINDEX}]</name>
                             <type>SNMPV2</type>
                             <description>The total number of octets received on the interface,&#13; including framing characters.&#13;&#13; Discontinuities in the value of this counter can occur at&#13; re-initialization of the management system, and at other&#13; times as indicated by the value of&#13; ifCounterDiscontinuityTime.</description>
@@ -373,7 +413,7 @@
                         <item_prototype>
                             <name>IF-MIB::ifOutQLen[{#SNMPINDEX}]</name>
                             <type>SNMPV2</type>
-                            <description>&#13;* nonindex, ifSpecific, oid, .1.3.6.1.2.1.2.2.1.22, IF-MIB, ifEntry, 22, 0, </description>
+                            <description>The length of the output packet queue (in packets).</description>
                             <applications>
                                 <application>
                                     <name>IF-MIB</name>
@@ -388,8 +428,27 @@
                             <trends>0</trends>
                             <status>DISABLED</status>
                         </item_prototype>
+                        <item_prototype>
+                            <name>IF-MIB::ifSpecific[{#SNMPINDEX}]</name>
+                            <type>SNMPV2</type>
+                            <description>A reference to MIB definitions specific to the particular&#13; media being used to realize the interface. It is&#13;&#13; recommended that this value point to an instance of a MIB&#13; object in the media-specific MIB, i.e., that this object&#13; have the semantics associated with the InstancePointer&#13; textual convention defined in RFC 2579. In fact, it is&#13; recommended that the media-specific MIB specify what value&#13; ifSpecific should/can take for values of ifType. If no MIB&#13; definitions specific to the particular media are available,&#13; the value should be set to the OBJECT IDENTIFIER { 0 0 }.</description>
+                            <applications>
+                                <application>
+                                    <name>IF-MIB</name>
+                                </application>
+                            </applications>
+                            <port>{$SNMP_PORT}</port>
+                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <key>.1.3.6.1.2.1.2.2.1.22.[{#SNMPINDEX}]</key>
+                            <snmp_oid>.1.3.6.1.2.1.2.2.1.22.{#SNMPINDEX}</snmp_oid>
+                            <delay>1h</delay>
+                            <history>2w</history>
+                            <trends>0</trends>
+                            <status>DISABLED</status>
+                            <value_type>CHAR</value_type>
+                        </item_prototype>
                     </item_prototypes>
-                    <snmp_oid>discovery[{#IFDESCR},.1.3.6.1.2.1.2.2.1.2,{#IFTYPE},.1.3.6.1.2.1.2.2.1.3,{#IFMTU},.1.3.6.1.2.1.2.2.1.4,{#IFSPEED},.1.3.6.1.2.1.2.2.1.5,{#IFPHYSADDRESS},.1.3.6.1.2.1.2.2.1.6,{#IFADMINSTATUS},.1.3.6.1.2.1.2.2.1.7,{#IFINOCTETS},.1.3.6.1.2.1.2.2.1.10,{#IFINUCASTPKTS},.1.3.6.1.2.1.2.2.1.11,{#IFINNUCASTPKTS},.1.3.6.1.2.1.2.2.1.12,{#IFINDISCARDS},.1.3.6.1.2.1.2.2.1.13,{#IFINERRORS},.1.3.6.1.2.1.2.2.1.14,{#IFINUNKNOWNPROTOS},.1.3.6.1.2.1.2.2.1.15,{#IFOUTOCTETS},.1.3.6.1.2.1.2.2.1.16]</snmp_oid>
+                    <snmp_oid>discovery[{#IFDESCR},.1.3.6.1.2.1.2.2.1.2,{#IFTYPE},.1.3.6.1.2.1.2.2.1.3,{#IFMTU},.1.3.6.1.2.1.2.2.1.4,{#IFSPEED},.1.3.6.1.2.1.2.2.1.5,{#IFPHYSADDRESS},.1.3.6.1.2.1.2.2.1.6,{#IFADMINSTATUS},.1.3.6.1.2.1.2.2.1.7,{#IFOPERSTATUS},.1.3.6.1.2.1.2.2.1.8,{#IFLASTCHANGE},.1.3.6.1.2.1.2.2.1.9,{#IFINOCTETS},.1.3.6.1.2.1.2.2.1.10,{#IFINUCASTPKTS},.1.3.6.1.2.1.2.2.1.11,{#IFINNUCASTPKTS},.1.3.6.1.2.1.2.2.1.12,{#IFINDISCARDS},.1.3.6.1.2.1.2.2.1.13,{#IFINERRORS},.1.3.6.1.2.1.2.2.1.14,{#IFOUTQLEN},.1.3.6.1.2.1.2.2.1.21]</snmp_oid>
                 </discovery_rule>
             </discovery_rules>
         </template>
@@ -403,548 +462,1129 @@
                     <value>1</value>
                 </mapping>
                 <mapping>
+                    <newvalue>regular1822</newvalue>
+                    <value>2</value>
+                </mapping>
+                <mapping>
                     <newvalue>hdh1822</newvalue>
                     <value>3</value>
+                </mapping>
+                <mapping>
+                    <newvalue>ddnX25</newvalue>
+                    <value>4</value>
                 </mapping>
                 <mapping>
                     <newvalue>rfc877x25</newvalue>
                     <value>5</value>
                 </mapping>
                 <mapping>
+                    <newvalue>ethernetCsmacd</newvalue>
+                    <value>6</value>
+                </mapping>
+                <mapping>
                     <newvalue>iso88023Csmacd</newvalue>
                     <value>7</value>
+                </mapping>
+                <mapping>
+                    <newvalue>iso88024TokenBus</newvalue>
+                    <value>8</value>
                 </mapping>
                 <mapping>
                     <newvalue>iso88025TokenRing</newvalue>
                     <value>9</value>
                 </mapping>
                 <mapping>
+                    <newvalue>iso88026Man</newvalue>
+                    <value>10</value>
+                </mapping>
+                <mapping>
                     <newvalue>starLan</newvalue>
                     <value>11</value>
+                </mapping>
+                <mapping>
+                    <newvalue>proteon10Mbit</newvalue>
+                    <value>12</value>
                 </mapping>
                 <mapping>
                     <newvalue>proteon80Mbit</newvalue>
                     <value>13</value>
                 </mapping>
                 <mapping>
+                    <newvalue>hyperchannel</newvalue>
+                    <value>14</value>
+                </mapping>
+                <mapping>
                     <newvalue>fddi</newvalue>
                     <value>15</value>
+                </mapping>
+                <mapping>
+                    <newvalue>lapb</newvalue>
+                    <value>16</value>
                 </mapping>
                 <mapping>
                     <newvalue>sdlc</newvalue>
                     <value>17</value>
                 </mapping>
                 <mapping>
+                    <newvalue>ds1</newvalue>
+                    <value>18</value>
+                </mapping>
+                <mapping>
                     <newvalue>e1</newvalue>
                     <value>19</value>
+                </mapping>
+                <mapping>
+                    <newvalue>basicISDN</newvalue>
+                    <value>20</value>
                 </mapping>
                 <mapping>
                     <newvalue>primaryISDN</newvalue>
                     <value>21</value>
                 </mapping>
                 <mapping>
+                    <newvalue>propPointToPointSerial</newvalue>
+                    <value>22</value>
+                </mapping>
+                <mapping>
                     <newvalue>ppp</newvalue>
                     <value>23</value>
+                </mapping>
+                <mapping>
+                    <newvalue>softwareLoopback</newvalue>
+                    <value>24</value>
                 </mapping>
                 <mapping>
                     <newvalue>eon</newvalue>
                     <value>25</value>
                 </mapping>
                 <mapping>
+                    <newvalue>ethernet3Mbit</newvalue>
+                    <value>26</value>
+                </mapping>
+                <mapping>
                     <newvalue>nsip</newvalue>
                     <value>27</value>
+                </mapping>
+                <mapping>
+                    <newvalue>slip</newvalue>
+                    <value>28</value>
                 </mapping>
                 <mapping>
                     <newvalue>ultra</newvalue>
                     <value>29</value>
                 </mapping>
                 <mapping>
+                    <newvalue>ds3</newvalue>
+                    <value>30</value>
+                </mapping>
+                <mapping>
                     <newvalue>sip</newvalue>
                     <value>31</value>
+                </mapping>
+                <mapping>
+                    <newvalue>frameRelay</newvalue>
+                    <value>32</value>
                 </mapping>
                 <mapping>
                     <newvalue>rs232</newvalue>
                     <value>33</value>
                 </mapping>
                 <mapping>
+                    <newvalue>para</newvalue>
+                    <value>34</value>
+                </mapping>
+                <mapping>
                     <newvalue>arcnet</newvalue>
                     <value>35</value>
+                </mapping>
+                <mapping>
+                    <newvalue>arcnetPlus</newvalue>
+                    <value>36</value>
                 </mapping>
                 <mapping>
                     <newvalue>atm</newvalue>
                     <value>37</value>
                 </mapping>
                 <mapping>
+                    <newvalue>miox25</newvalue>
+                    <value>38</value>
+                </mapping>
+                <mapping>
                     <newvalue>sonet</newvalue>
                     <value>39</value>
+                </mapping>
+                <mapping>
+                    <newvalue>x25ple</newvalue>
+                    <value>40</value>
                 </mapping>
                 <mapping>
                     <newvalue>iso88022llc</newvalue>
                     <value>41</value>
                 </mapping>
                 <mapping>
+                    <newvalue>localTalk</newvalue>
+                    <value>42</value>
+                </mapping>
+                <mapping>
                     <newvalue>smdsDxi</newvalue>
                     <value>43</value>
+                </mapping>
+                <mapping>
+                    <newvalue>frameRelayService</newvalue>
+                    <value>44</value>
                 </mapping>
                 <mapping>
                     <newvalue>v35</newvalue>
                     <value>45</value>
                 </mapping>
                 <mapping>
+                    <newvalue>hssi</newvalue>
+                    <value>46</value>
+                </mapping>
+                <mapping>
                     <newvalue>hippi</newvalue>
                     <value>47</value>
+                </mapping>
+                <mapping>
+                    <newvalue>modem</newvalue>
+                    <value>48</value>
                 </mapping>
                 <mapping>
                     <newvalue>aal5</newvalue>
                     <value>49</value>
                 </mapping>
                 <mapping>
+                    <newvalue>sonetPath</newvalue>
+                    <value>50</value>
+                </mapping>
+                <mapping>
                     <newvalue>sonetVT</newvalue>
                     <value>51</value>
+                </mapping>
+                <mapping>
+                    <newvalue>smdsIcip</newvalue>
+                    <value>52</value>
                 </mapping>
                 <mapping>
                     <newvalue>propVirtual</newvalue>
                     <value>53</value>
                 </mapping>
                 <mapping>
+                    <newvalue>propMultiplexor</newvalue>
+                    <value>54</value>
+                </mapping>
+                <mapping>
                     <newvalue>ieee80212</newvalue>
                     <value>55</value>
+                </mapping>
+                <mapping>
+                    <newvalue>fibreChannel</newvalue>
+                    <value>56</value>
                 </mapping>
                 <mapping>
                     <newvalue>hippiInterface</newvalue>
                     <value>57</value>
                 </mapping>
                 <mapping>
+                    <newvalue>frameRelayInterconnect</newvalue>
+                    <value>58</value>
+                </mapping>
+                <mapping>
                     <newvalue>aflane8023</newvalue>
                     <value>59</value>
+                </mapping>
+                <mapping>
+                    <newvalue>aflane8025</newvalue>
+                    <value>60</value>
                 </mapping>
                 <mapping>
                     <newvalue>cctEmul</newvalue>
                     <value>61</value>
                 </mapping>
                 <mapping>
+                    <newvalue>fastEther</newvalue>
+                    <value>62</value>
+                </mapping>
+                <mapping>
                     <newvalue>isdn</newvalue>
                     <value>63</value>
+                </mapping>
+                <mapping>
+                    <newvalue>v11</newvalue>
+                    <value>64</value>
                 </mapping>
                 <mapping>
                     <newvalue>v36</newvalue>
                     <value>65</value>
                 </mapping>
                 <mapping>
+                    <newvalue>g703at64k</newvalue>
+                    <value>66</value>
+                </mapping>
+                <mapping>
                     <newvalue>g703at2mb</newvalue>
                     <value>67</value>
+                </mapping>
+                <mapping>
+                    <newvalue>qllc</newvalue>
+                    <value>68</value>
                 </mapping>
                 <mapping>
                     <newvalue>fastEtherFX</newvalue>
                     <value>69</value>
                 </mapping>
                 <mapping>
+                    <newvalue>channel</newvalue>
+                    <value>70</value>
+                </mapping>
+                <mapping>
                     <newvalue>ieee80211</newvalue>
                     <value>71</value>
+                </mapping>
+                <mapping>
+                    <newvalue>ibm370parChan</newvalue>
+                    <value>72</value>
                 </mapping>
                 <mapping>
                     <newvalue>escon</newvalue>
                     <value>73</value>
                 </mapping>
                 <mapping>
+                    <newvalue>dlsw</newvalue>
+                    <value>74</value>
+                </mapping>
+                <mapping>
                     <newvalue>isdns</newvalue>
                     <value>75</value>
+                </mapping>
+                <mapping>
+                    <newvalue>isdnu</newvalue>
+                    <value>76</value>
                 </mapping>
                 <mapping>
                     <newvalue>lapd</newvalue>
                     <value>77</value>
                 </mapping>
                 <mapping>
+                    <newvalue>ipSwitch</newvalue>
+                    <value>78</value>
+                </mapping>
+                <mapping>
                     <newvalue>rsrb</newvalue>
                     <value>79</value>
+                </mapping>
+                <mapping>
+                    <newvalue>atmLogical</newvalue>
+                    <value>80</value>
                 </mapping>
                 <mapping>
                     <newvalue>ds0</newvalue>
                     <value>81</value>
                 </mapping>
                 <mapping>
+                    <newvalue>ds0Bundle</newvalue>
+                    <value>82</value>
+                </mapping>
+                <mapping>
                     <newvalue>bsc</newvalue>
                     <value>83</value>
+                </mapping>
+                <mapping>
+                    <newvalue>async</newvalue>
+                    <value>84</value>
                 </mapping>
                 <mapping>
                     <newvalue>cnr</newvalue>
                     <value>85</value>
                 </mapping>
                 <mapping>
+                    <newvalue>iso88025Dtr</newvalue>
+                    <value>86</value>
+                </mapping>
+                <mapping>
                     <newvalue>eplrs</newvalue>
                     <value>87</value>
+                </mapping>
+                <mapping>
+                    <newvalue>arap</newvalue>
+                    <value>88</value>
                 </mapping>
                 <mapping>
                     <newvalue>propCnls</newvalue>
                     <value>89</value>
                 </mapping>
                 <mapping>
+                    <newvalue>hostPad</newvalue>
+                    <value>90</value>
+                </mapping>
+                <mapping>
                     <newvalue>termPad</newvalue>
                     <value>91</value>
+                </mapping>
+                <mapping>
+                    <newvalue>frameRelayMPI</newvalue>
+                    <value>92</value>
                 </mapping>
                 <mapping>
                     <newvalue>x213</newvalue>
                     <value>93</value>
                 </mapping>
                 <mapping>
+                    <newvalue>adsl</newvalue>
+                    <value>94</value>
+                </mapping>
+                <mapping>
                     <newvalue>radsl</newvalue>
                     <value>95</value>
+                </mapping>
+                <mapping>
+                    <newvalue>sdsl</newvalue>
+                    <value>96</value>
                 </mapping>
                 <mapping>
                     <newvalue>vdsl</newvalue>
                     <value>97</value>
                 </mapping>
                 <mapping>
+                    <newvalue>iso88025CRFPInt</newvalue>
+                    <value>98</value>
+                </mapping>
+                <mapping>
                     <newvalue>myrinet</newvalue>
                     <value>99</value>
+                </mapping>
+                <mapping>
+                    <newvalue>voiceEM</newvalue>
+                    <value>100</value>
                 </mapping>
                 <mapping>
                     <newvalue>voiceFXO</newvalue>
                     <value>101</value>
                 </mapping>
                 <mapping>
+                    <newvalue>voiceFXS</newvalue>
+                    <value>102</value>
+                </mapping>
+                <mapping>
                     <newvalue>voiceEncap</newvalue>
                     <value>103</value>
+                </mapping>
+                <mapping>
+                    <newvalue>voiceOverIp</newvalue>
+                    <value>104</value>
                 </mapping>
                 <mapping>
                     <newvalue>atmDxi</newvalue>
                     <value>105</value>
                 </mapping>
                 <mapping>
+                    <newvalue>atmFuni</newvalue>
+                    <value>106</value>
+                </mapping>
+                <mapping>
                     <newvalue>atmIma</newvalue>
                     <value>107</value>
+                </mapping>
+                <mapping>
+                    <newvalue>pppMultilinkBundle</newvalue>
+                    <value>108</value>
                 </mapping>
                 <mapping>
                     <newvalue>ipOverCdlc</newvalue>
                     <value>109</value>
                 </mapping>
                 <mapping>
+                    <newvalue>ipOverClaw</newvalue>
+                    <value>110</value>
+                </mapping>
+                <mapping>
                     <newvalue>stackToStack</newvalue>
                     <value>111</value>
+                </mapping>
+                <mapping>
+                    <newvalue>virtualIpAddress</newvalue>
+                    <value>112</value>
                 </mapping>
                 <mapping>
                     <newvalue>mpc</newvalue>
                     <value>113</value>
                 </mapping>
                 <mapping>
+                    <newvalue>ipOverAtm</newvalue>
+                    <value>114</value>
+                </mapping>
+                <mapping>
                     <newvalue>iso88025Fiber</newvalue>
                     <value>115</value>
+                </mapping>
+                <mapping>
+                    <newvalue>tdlc</newvalue>
+                    <value>116</value>
                 </mapping>
                 <mapping>
                     <newvalue>gigabitEthernet</newvalue>
                     <value>117</value>
                 </mapping>
                 <mapping>
+                    <newvalue>hdlc</newvalue>
+                    <value>118</value>
+                </mapping>
+                <mapping>
                     <newvalue>lapf</newvalue>
                     <value>119</value>
+                </mapping>
+                <mapping>
+                    <newvalue>v37</newvalue>
+                    <value>120</value>
                 </mapping>
                 <mapping>
                     <newvalue>x25mlp</newvalue>
                     <value>121</value>
                 </mapping>
                 <mapping>
+                    <newvalue>x25huntGroup</newvalue>
+                    <value>122</value>
+                </mapping>
+                <mapping>
                     <newvalue>transpHdlc</newvalue>
                     <value>123</value>
+                </mapping>
+                <mapping>
+                    <newvalue>interleave</newvalue>
+                    <value>124</value>
                 </mapping>
                 <mapping>
                     <newvalue>fast</newvalue>
                     <value>125</value>
                 </mapping>
                 <mapping>
+                    <newvalue>ip</newvalue>
+                    <value>126</value>
+                </mapping>
+                <mapping>
                     <newvalue>docsCableMaclayer</newvalue>
                     <value>127</value>
+                </mapping>
+                <mapping>
+                    <newvalue>docsCableDownstream</newvalue>
+                    <value>128</value>
                 </mapping>
                 <mapping>
                     <newvalue>docsCableUpstream</newvalue>
                     <value>129</value>
                 </mapping>
                 <mapping>
+                    <newvalue>a12MppSwitch</newvalue>
+                    <value>130</value>
+                </mapping>
+                <mapping>
                     <newvalue>tunnel</newvalue>
                     <value>131</value>
+                </mapping>
+                <mapping>
+                    <newvalue>coffee</newvalue>
+                    <value>132</value>
                 </mapping>
                 <mapping>
                     <newvalue>ces</newvalue>
                     <value>133</value>
                 </mapping>
                 <mapping>
+                    <newvalue>atmSubInterface</newvalue>
+                    <value>134</value>
+                </mapping>
+                <mapping>
                     <newvalue>l2vlan</newvalue>
                     <value>135</value>
+                </mapping>
+                <mapping>
+                    <newvalue>l3ipvlan</newvalue>
+                    <value>136</value>
                 </mapping>
                 <mapping>
                     <newvalue>l3ipxvlan</newvalue>
                     <value>137</value>
                 </mapping>
                 <mapping>
+                    <newvalue>digitalPowerline</newvalue>
+                    <value>138</value>
+                </mapping>
+                <mapping>
                     <newvalue>mediaMailOverIp</newvalue>
                     <value>139</value>
+                </mapping>
+                <mapping>
+                    <newvalue>dtm</newvalue>
+                    <value>140</value>
                 </mapping>
                 <mapping>
                     <newvalue>dcn</newvalue>
                     <value>141</value>
                 </mapping>
                 <mapping>
+                    <newvalue>ipForward</newvalue>
+                    <value>142</value>
+                </mapping>
+                <mapping>
                     <newvalue>msdsl</newvalue>
                     <value>143</value>
+                </mapping>
+                <mapping>
+                    <newvalue>ieee1394</newvalue>
+                    <value>144</value>
                 </mapping>
                 <mapping>
                     <newvalue>if_gsn</newvalue>
                     <value>145</value>
                 </mapping>
                 <mapping>
+                    <newvalue>dvbRccMacLayer</newvalue>
+                    <value>146</value>
+                </mapping>
+                <mapping>
                     <newvalue>dvbRccDownstream</newvalue>
                     <value>147</value>
+                </mapping>
+                <mapping>
+                    <newvalue>dvbRccUpstream</newvalue>
+                    <value>148</value>
                 </mapping>
                 <mapping>
                     <newvalue>atmVirtual</newvalue>
                     <value>149</value>
                 </mapping>
                 <mapping>
+                    <newvalue>mplsTunnel</newvalue>
+                    <value>150</value>
+                </mapping>
+                <mapping>
                     <newvalue>srp</newvalue>
                     <value>151</value>
+                </mapping>
+                <mapping>
+                    <newvalue>voiceOverAtm</newvalue>
+                    <value>152</value>
                 </mapping>
                 <mapping>
                     <newvalue>voiceOverFrameRelay</newvalue>
                     <value>153</value>
                 </mapping>
                 <mapping>
+                    <newvalue>idsl</newvalue>
+                    <value>154</value>
+                </mapping>
+                <mapping>
                     <newvalue>compositeLink</newvalue>
                     <value>155</value>
+                </mapping>
+                <mapping>
+                    <newvalue>ss7SigLink</newvalue>
+                    <value>156</value>
                 </mapping>
                 <mapping>
                     <newvalue>propWirelessP2P</newvalue>
                     <value>157</value>
                 </mapping>
                 <mapping>
+                    <newvalue>frForward</newvalue>
+                    <value>158</value>
+                </mapping>
+                <mapping>
                     <newvalue>rfc1483</newvalue>
                     <value>159</value>
+                </mapping>
+                <mapping>
+                    <newvalue>usb</newvalue>
+                    <value>160</value>
                 </mapping>
                 <mapping>
                     <newvalue>ieee8023adLag</newvalue>
                     <value>161</value>
                 </mapping>
                 <mapping>
+                    <newvalue>bgppolicyaccounting</newvalue>
+                    <value>162</value>
+                </mapping>
+                <mapping>
                     <newvalue>frf16MfrBundle</newvalue>
                     <value>163</value>
+                </mapping>
+                <mapping>
+                    <newvalue>h323Gatekeeper</newvalue>
+                    <value>164</value>
                 </mapping>
                 <mapping>
                     <newvalue>h323Proxy</newvalue>
                     <value>165</value>
                 </mapping>
                 <mapping>
+                    <newvalue>mpls</newvalue>
+                    <value>166</value>
+                </mapping>
+                <mapping>
                     <newvalue>mfSigLink</newvalue>
                     <value>167</value>
+                </mapping>
+                <mapping>
+                    <newvalue>hdsl2</newvalue>
+                    <value>168</value>
                 </mapping>
                 <mapping>
                     <newvalue>shdsl</newvalue>
                     <value>169</value>
                 </mapping>
                 <mapping>
+                    <newvalue>ds1FDL</newvalue>
+                    <value>170</value>
+                </mapping>
+                <mapping>
                     <newvalue>pos</newvalue>
                     <value>171</value>
+                </mapping>
+                <mapping>
+                    <newvalue>dvbAsiIn</newvalue>
+                    <value>172</value>
                 </mapping>
                 <mapping>
                     <newvalue>dvbAsiOut</newvalue>
                     <value>173</value>
                 </mapping>
                 <mapping>
+                    <newvalue>plc</newvalue>
+                    <value>174</value>
+                </mapping>
+                <mapping>
                     <newvalue>nfas</newvalue>
                     <value>175</value>
+                </mapping>
+                <mapping>
+                    <newvalue>tr008</newvalue>
+                    <value>176</value>
                 </mapping>
                 <mapping>
                     <newvalue>gr303RDT</newvalue>
                     <value>177</value>
                 </mapping>
                 <mapping>
+                    <newvalue>gr303IDT</newvalue>
+                    <value>178</value>
+                </mapping>
+                <mapping>
                     <newvalue>isup</newvalue>
                     <value>179</value>
+                </mapping>
+                <mapping>
+                    <newvalue>propDocsWirelessMaclayer</newvalue>
+                    <value>180</value>
                 </mapping>
                 <mapping>
                     <newvalue>propDocsWirelessDownstream</newvalue>
                     <value>181</value>
                 </mapping>
                 <mapping>
+                    <newvalue>propDocsWirelessUpstream</newvalue>
+                    <value>182</value>
+                </mapping>
+                <mapping>
                     <newvalue>hiperlan2</newvalue>
                     <value>183</value>
+                </mapping>
+                <mapping>
+                    <newvalue>propBWAp2Mp</newvalue>
+                    <value>184</value>
                 </mapping>
                 <mapping>
                     <newvalue>sonetOverheadChannel</newvalue>
                     <value>185</value>
                 </mapping>
                 <mapping>
+                    <newvalue>digitalWrapperOverheadChannel</newvalue>
+                    <value>186</value>
+                </mapping>
+                <mapping>
                     <newvalue>aal2</newvalue>
                     <value>187</value>
+                </mapping>
+                <mapping>
+                    <newvalue>radioMAC</newvalue>
+                    <value>188</value>
                 </mapping>
                 <mapping>
                     <newvalue>atmRadio</newvalue>
                     <value>189</value>
                 </mapping>
                 <mapping>
+                    <newvalue>imt</newvalue>
+                    <value>190</value>
+                </mapping>
+                <mapping>
                     <newvalue>mvl</newvalue>
                     <value>191</value>
+                </mapping>
+                <mapping>
+                    <newvalue>reachDSL</newvalue>
+                    <value>192</value>
                 </mapping>
                 <mapping>
                     <newvalue>frDlciEndPt</newvalue>
                     <value>193</value>
                 </mapping>
                 <mapping>
+                    <newvalue>atmVciEndPt</newvalue>
+                    <value>194</value>
+                </mapping>
+                <mapping>
                     <newvalue>opticalChannel</newvalue>
                     <value>195</value>
+                </mapping>
+                <mapping>
+                    <newvalue>opticalTransport</newvalue>
+                    <value>196</value>
                 </mapping>
                 <mapping>
                     <newvalue>propAtm</newvalue>
                     <value>197</value>
                 </mapping>
                 <mapping>
+                    <newvalue>voiceOverCable</newvalue>
+                    <value>198</value>
+                </mapping>
+                <mapping>
                     <newvalue>infiniband</newvalue>
                     <value>199</value>
+                </mapping>
+                <mapping>
+                    <newvalue>teLink</newvalue>
+                    <value>200</value>
                 </mapping>
                 <mapping>
                     <newvalue>q2931</newvalue>
                     <value>201</value>
                 </mapping>
                 <mapping>
+                    <newvalue>virtualTg</newvalue>
+                    <value>202</value>
+                </mapping>
+                <mapping>
                     <newvalue>sipTg</newvalue>
                     <value>203</value>
+                </mapping>
+                <mapping>
+                    <newvalue>sipSig</newvalue>
+                    <value>204</value>
                 </mapping>
                 <mapping>
                     <newvalue>docsCableUpstreamChannel</newvalue>
                     <value>205</value>
                 </mapping>
                 <mapping>
+                    <newvalue>econet</newvalue>
+                    <value>206</value>
+                </mapping>
+                <mapping>
                     <newvalue>pon155</newvalue>
                     <value>207</value>
+                </mapping>
+                <mapping>
+                    <newvalue>pon622</newvalue>
+                    <value>208</value>
                 </mapping>
                 <mapping>
                     <newvalue>bridge</newvalue>
                     <value>209</value>
                 </mapping>
                 <mapping>
+                    <newvalue>linegroup</newvalue>
+                    <value>210</value>
+                </mapping>
+                <mapping>
                     <newvalue>voiceEMFGD</newvalue>
                     <value>211</value>
+                </mapping>
+                <mapping>
+                    <newvalue>voiceFGDEANA</newvalue>
+                    <value>212</value>
                 </mapping>
                 <mapping>
                     <newvalue>voiceDID</newvalue>
                     <value>213</value>
                 </mapping>
                 <mapping>
+                    <newvalue>mpegTransport</newvalue>
+                    <value>214</value>
+                </mapping>
+                <mapping>
                     <newvalue>sixToFour</newvalue>
                     <value>215</value>
+                </mapping>
+                <mapping>
+                    <newvalue>gtp</newvalue>
+                    <value>216</value>
                 </mapping>
                 <mapping>
                     <newvalue>pdnEtherLoop1</newvalue>
                     <value>217</value>
                 </mapping>
                 <mapping>
+                    <newvalue>pdnEtherLoop2</newvalue>
+                    <value>218</value>
+                </mapping>
+                <mapping>
                     <newvalue>opticalChannelGroup</newvalue>
                     <value>219</value>
+                </mapping>
+                <mapping>
+                    <newvalue>homepna</newvalue>
+                    <value>220</value>
                 </mapping>
                 <mapping>
                     <newvalue>gfp</newvalue>
                     <value>221</value>
                 </mapping>
                 <mapping>
+                    <newvalue>ciscoISLvlan</newvalue>
+                    <value>222</value>
+                </mapping>
+                <mapping>
                     <newvalue>actelisMetaLOOP</newvalue>
                     <value>223</value>
+                </mapping>
+                <mapping>
+                    <newvalue>fcipLink</newvalue>
+                    <value>224</value>
                 </mapping>
                 <mapping>
                     <newvalue>rpr</newvalue>
                     <value>225</value>
                 </mapping>
                 <mapping>
+                    <newvalue>qam</newvalue>
+                    <value>226</value>
+                </mapping>
+                <mapping>
                     <newvalue>lmp</newvalue>
                     <value>227</value>
+                </mapping>
+                <mapping>
+                    <newvalue>cblVectaStar</newvalue>
+                    <value>228</value>
                 </mapping>
                 <mapping>
                     <newvalue>docsCableMCmtsDownstream</newvalue>
                     <value>229</value>
                 </mapping>
                 <mapping>
+                    <newvalue>adsl2</newvalue>
+                    <value>230</value>
+                </mapping>
+                <mapping>
                     <newvalue>macSecControlledIF</newvalue>
                     <value>231</value>
+                </mapping>
+                <mapping>
+                    <newvalue>macSecUncontrolledIF</newvalue>
+                    <value>232</value>
                 </mapping>
                 <mapping>
                     <newvalue>aviciOpticalEther</newvalue>
                     <value>233</value>
                 </mapping>
                 <mapping>
+                    <newvalue>atmbond</newvalue>
+                    <value>234</value>
+                </mapping>
+                <mapping>
                     <newvalue>voiceFGDOS</newvalue>
                     <value>235</value>
+                </mapping>
+                <mapping>
+                    <newvalue>mocaVersion1</newvalue>
+                    <value>236</value>
                 </mapping>
                 <mapping>
                     <newvalue>ieee80216WMAN</newvalue>
                     <value>237</value>
                 </mapping>
                 <mapping>
+                    <newvalue>adsl2plus</newvalue>
+                    <value>238</value>
+                </mapping>
+                <mapping>
                     <newvalue>dvbRcsMacLayer</newvalue>
                     <value>239</value>
+                </mapping>
+                <mapping>
+                    <newvalue>dvbTdm</newvalue>
+                    <value>240</value>
                 </mapping>
                 <mapping>
                     <newvalue>dvbRcsTdma</newvalue>
                     <value>241</value>
                 </mapping>
                 <mapping>
+                    <newvalue>x86Laps</newvalue>
+                    <value>242</value>
+                </mapping>
+                <mapping>
                     <newvalue>wwanPP</newvalue>
                     <value>243</value>
+                </mapping>
+                <mapping>
+                    <newvalue>wwanPP2</newvalue>
+                    <value>244</value>
                 </mapping>
                 <mapping>
                     <newvalue>voiceEBS</newvalue>
                     <value>245</value>
                 </mapping>
                 <mapping>
+                    <newvalue>ifPwType</newvalue>
+                    <value>246</value>
+                </mapping>
+                <mapping>
                     <newvalue>ilan</newvalue>
                     <value>247</value>
+                </mapping>
+                <mapping>
+                    <newvalue>pip</newvalue>
+                    <value>248</value>
                 </mapping>
                 <mapping>
                     <newvalue>aluELP</newvalue>
                     <value>249</value>
                 </mapping>
                 <mapping>
+                    <newvalue>gpon</newvalue>
+                    <value>250</value>
+                </mapping>
+                <mapping>
                     <newvalue>vdsl2</newvalue>
                     <value>251</value>
+                </mapping>
+                <mapping>
+                    <newvalue>capwapDot11Profile</newvalue>
+                    <value>252</value>
                 </mapping>
                 <mapping>
                     <newvalue>capwapDot11Bss</newvalue>
                     <value>253</value>
                 </mapping>
                 <mapping>
+                    <newvalue>capwapWtpVirtualRadio</newvalue>
+                    <value>254</value>
+                </mapping>
+                <mapping>
                     <newvalue>bits</newvalue>
                     <value>255</value>
+                </mapping>
+                <mapping>
+                    <newvalue>docsCableUpstreamRfPort</newvalue>
+                    <value>256</value>
                 </mapping>
                 <mapping>
                     <newvalue>cableDownstreamRfPort</newvalue>
                     <value>257</value>
                 </mapping>
                 <mapping>
+                    <newvalue>vmwareVirtualNic</newvalue>
+                    <value>258</value>
+                </mapping>
+                <mapping>
                     <newvalue>ieee802154</newvalue>
                     <value>259</value>
+                </mapping>
+                <mapping>
+                    <newvalue>otnOdu</newvalue>
+                    <value>260</value>
                 </mapping>
                 <mapping>
                     <newvalue>otnOtu</newvalue>
                     <value>261</value>
                 </mapping>
                 <mapping>
+                    <newvalue>ifVfiType</newvalue>
+                    <value>262</value>
+                </mapping>
+                <mapping>
                     <newvalue>g9981</newvalue>
                     <value>263</value>
+                </mapping>
+                <mapping>
+                    <newvalue>g9982</newvalue>
+                    <value>264</value>
                 </mapping>
                 <mapping>
                     <newvalue>g9983</newvalue>
                     <value>265</value>
                 </mapping>
                 <mapping>
+                    <newvalue>aluEpon</newvalue>
+                    <value>266</value>
+                </mapping>
+                <mapping>
                     <newvalue>aluEponOnu</newvalue>
                     <value>267</value>
+                </mapping>
+                <mapping>
+                    <newvalue>aluEponPhysicalUni</newvalue>
+                    <value>268</value>
                 </mapping>
                 <mapping>
                     <newvalue>aluEponLogicalLink</newvalue>
                     <value>269</value>
                 </mapping>
                 <mapping>
+                    <newvalue>aluGponOnu</newvalue>
+                    <value>270</value>
+                </mapping>
+                <mapping>
                     <newvalue>aluGponPhysicalUni</newvalue>
                     <value>271</value>
                 </mapping>
                 <mapping>
+                    <newvalue>vmwareNicTeam</newvalue>
+                    <value>272</value>
+                </mapping>
+                <mapping>
                     <newvalue>docsOfdmDownstream</newvalue>
                     <value>277</value>
+                </mapping>
+                <mapping>
+                    <newvalue>docsOfdmaUpstream</newvalue>
+                    <value>278</value>
+                </mapping>
+            </mappings>
+        </value_map>
+        <value_map>
+            <name>IF-MIB::ifOperStatus</name>
+            <mappings>
+                <mapping>
+                    <newvalue>up</newvalue>
+                    <value>1</value>
+                </mapping>
+                <mapping>
+                    <newvalue>down</newvalue>
+                    <value>2</value>
+                </mapping>
+                <mapping>
+                    <newvalue>testing</newvalue>
+                    <value>3</value>
+                </mapping>
+                <mapping>
+                    <newvalue>unknown</newvalue>
+                    <value>4</value>
+                </mapping>
+                <mapping>
+                    <newvalue>dormant</newvalue>
+                    <value>5</value>
+                </mapping>
+                <mapping>
+                    <newvalue>notPresent</newvalue>
+                    <value>6</value>
+                </mapping>
+                <mapping>
+                    <newvalue>lowerLayerDown</newvalue>
+                    <value>7</value>
                 </mapping>
             </mappings>
         </value_map>
@@ -956,24 +1596,12 @@
                     <value>1</value>
                 </mapping>
                 <mapping>
-                    <newvalue>testing</newvalue>
-                    <value>3</value>
-                </mapping>
-                <mapping>
-                    <newvalue>up</newvalue>
-                    <value>1</value>
+                    <newvalue>down</newvalue>
+                    <value>2</value>
                 </mapping>
                 <mapping>
                     <newvalue>testing</newvalue>
                     <value>3</value>
-                </mapping>
-                <mapping>
-                    <newvalue>dormant</newvalue>
-                    <value>5</value>
-                </mapping>
-                <mapping>
-                    <newvalue>lowerLayerDown</newvalue>
-                    <value>7</value>
                 </mapping>
             </mappings>
         </value_map>

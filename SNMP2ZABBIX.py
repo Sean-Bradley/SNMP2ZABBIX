@@ -134,10 +134,14 @@ for l in it:
                         ENUMS[LAST_ENUM_NAME] = []
                     ENUMS[LAST_ENUM_NAME].append(
                         [row[1].strip(), row[2].strip()])
+                    #print("enum " + LAST_ENUM_NAME + " " + row[1].strip() + " " + row[2].strip())
                 elif row[0] == "index":
-                    print("index:\t" + row[4].strip() + "::" +
-                          row[1].strip() + "\t" + row[3].strip())
-                    # pass
+                    print(
+                        "index:\t" + row[4].strip() + "::" + row[1].strip() + "\t" + row[3].strip())
+                    if int(row[7]) == 1:
+                        LAST_ENUM_NAME = row[4].strip() + "::" + row[1].strip()
+                    else:
+                        LAST_ENUM_NAME = row[4].strip() + "::" + row[1].strip()
                 elif row[0] == "nonindex":
                     print(
                         "nonindex:\t" + row[4].strip() + "::" + row[1].strip() + "\t" + row[3].strip())
@@ -313,7 +317,7 @@ XML += """        </template>
     </templates>
 """
 
-ENUMS
+#ENUMS
 if len(ENUMS):
     XML += """    <value_maps>
 """
