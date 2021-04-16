@@ -288,7 +288,6 @@ if len(DISCOVERY_RULES):
                             <delay>1h</delay>
                             <history>2w</history>
                             <trends>0</trends>
-                            <status>DISABLED</status>
 """
                 if z[2] is not None:
                     XML += """                            <value_type>""" + z[2] + """</value_type>
