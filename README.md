@@ -4,7 +4,7 @@ snmp2zabbix is a python script that allows you to create Zabbix Templates from M
 
 Download:
 ```bash
-wget https://github.com/Sean-Bradley/SNMP2ZABBIX/blob/master/SNMP2ZABBIX.py
+wget https://raw.githubusercontent.com/Sean-Bradley/SNMP2ZABBIX/master/SNMP2ZABBIX.py
 ```
 
 Usage: 
@@ -104,7 +104,7 @@ yum install python
 Now download the **SNMP2ZABBIX.py** tool
 
 ``` bash
-wget https://github.com/Sean-Bradley/SNMP2ZABBIX/blob/master/SNMP2ZABBIX.py
+wget https://raw.githubusercontent.com/Sean-Bradley/SNMP2ZABBIX/master/SNMP2ZABBIX.py
 ```
 
 Now you should be ready to continue.
