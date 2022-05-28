@@ -1,5 +1,7 @@
 # SNMP2ZABBIX
 
+> **NOTE** that I have not maintained this script for a long time. You may prefer to use my newer script at https://github.com/Sean-Bradley/SNMPWALK2ZABBIX
+
 snmp2zabbix is a python script that allows you to create Zabbix Templates from MIB files.
 
 Download:
