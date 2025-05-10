@@ -97,7 +97,7 @@ for l in it:
     description = ""
     if groups is not None:
         if groups.group(1) is not None:
-            description = groups.group(1).encode('string_escape')
+            description = groups.group(1).encode('utf8').decode('unicode-escape')
             description = description.replace('"', '')
             description = description.replace('\\n', '&#13;')
             description = description.replace('<', '&lt;')
@@ -212,7 +212,8 @@ XML = """<?xml version="1.0" encoding="UTF-8"?>
 """
 
 # SCALARS
-if SCALARS.count > 0:
+#if SCALARS.count > 0:
+if len(SCALARS) > 0:
     XML += """            <items>
 """
 for s in SCALARS:
@@ -238,7 +239,8 @@ for s in SCALARS:
                     <status>DISABLED</status>
                 </item>
 """
-if SCALARS.count > 0:
+#if SCALARS.count > 0:
+if len(SCALARS) > 0:
     XML += """            </items>
 """
 
